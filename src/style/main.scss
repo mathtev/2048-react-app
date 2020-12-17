@@ -1,0 +1,138 @@
+@import '_config.scss';
+@import '_board.scss';
+@import '_tile.scss';
+
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
+    color: #776e65;
+    background-color: $bg-color;
+    zoom: 75%;
+  }
+  
+  .game {
+    width: calc(#{$board-size} + 2rem);
+    margin: 0 auto 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .game>p {
+    font-size: 21px;
+  }
+
+  .change-dim {
+    width: 400px;
+    position: fixed;
+    left: 1rem;
+    top: 5rem;
+    font-size: 24px;
+
+    input {
+      font-size: 24px;
+    }
+
+    input:first-child {
+      width: 40px;
+    }
+  }
+
+  .game .score-and-logo {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo {
+    height: 200px;
+    width: 200px;
+    background-color: #ffdc5d;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 37px;
+  }
+  
+  .logo>h1 {
+    padding-top: 25%;
+  }
+  
+  .score div {
+    display: inline-block;
+    height: 100px;
+    width: 130px;
+    background-color: #bbada0;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+  
+  .score div h1 {
+    text-align: center;
+    font-size: 45px;
+    margin-top: 0px;
+  }
+  
+  /*score title*/
+  .score div h2 {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+  
+  .restartBtn {
+    height: 50px;
+    width: 270px;
+    background-color: #776e65;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px;
+    border: 0px;
+    margin-left: auto;
+  }
+  
+  footer {
+    width: 100%;
+    margin-top: 30px;
+  }
+  footer>p {
+    font-size:15px;
+    margin-top: 0px;
+    margin-bottom:2px;
+  }
+  
+  .lost {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(251, 248, 239, 0.6);
+    z-index: 2;
+  }
+  .lost>h3 {
+    font-size: 60px;
+    margin-top: 120px;
+    margin-bottom: 0px;
+  }
+  .lost>p {
+    font-size: 40px;
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+  .tryagainBtn {
+    height: 50px;
+    width: 200px;
+    background-color: #776e65;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px;
+    border: 0px;
+    margin-top: 20px;
+  }
+

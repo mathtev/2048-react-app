@@ -1,0 +1,136 @@
+
+.tile {
+    position: absolute;
+    width: $tile-size;
+    height: $tile-size;
+    top: 1rem;
+    background-color: #EEE4DB;
+    border-radius: 3px;
+    line-height: $tile-size;
+    text-align: center;
+}
+  
+
+.new-tile {
+    animation-duration: 0.1s;
+    animation-name: newTile;
+    animation-fill-mode: forwards;
+    animation-delay: 0.15s;
+    transform: scale(0);
+  }
+  
+  @keyframes newTile {
+    from {
+      transform: scale(0);
+    }
+  
+    to {
+      transform: scale(1);
+    }
+  }
+  
+.upper-tile {
+    z-index: 1;
+}
+
+.tile p {
+  margin-top: 0;
+}
+
+.tile-2>p { font-size: $font-factor;}
+.tile-4>p { font-size: $font-factor;}
+.tile-8>p { font-size: $font-factor;}
+.tile-16>p { font-size: $font-factor;}
+.tile-32>p { font-size: $font-factor;}
+.tile-64>p { font-size: $font-factor;}
+.tile-128>p { font-size: $small-font-factor;}
+.tile-256>p { font-size: $small-font-factor;}
+.tile-512>p { font-size: $small-font-factor;}
+.tile-1024>p { font-size: $small-font-factor;}
+.tile-2048>p { font-size: $small-font-factor;}
+
+.tile-2   {  background-color: #eee4db; }
+.tile-4   {  background-color: #ece0c9ea; }
+.tile-8   {  background-color: #f0ae80; color: #f9f6f2; ;}
+.tile-16  {  background-color: #df8a5c; color: #f9f6f2; }
+.tile-32  {  background-color: #e26d55; color: #f9f6f2; }
+.tile-64  {  background-color: #e45b3c; color: #f9f6f2; }
+.tile-128 {  background-color: #e0c267e5; color: #f9f6f2; }
+.tile-256 {  background-color: #e6c550; color: #f9f6f2; }
+.tile-512 {  background-color: #cfae36; color: #f9f6f2; }
+.tile-1024{  background-color: #dbb837; color: #f9f6f2; }
+.tile-2048{  background-color: #d1a927; color: #f9f6f2; }
+
+
+
+
+@for $row from 1 through $board-dim {
+  @for $column from 1 through $board-dim {
+    .position-#{$row}-#{$column} {
+      grid-row: $row;
+      grid-column: $column;
+    }
+  }
+}
+
+//As I learned you can't make animations for grid so I had to improvise
+//TODO simplify
+@for $fromRow from 0 through $board-dim {
+  @for $toRow from 0 through $board-dim {
+    $name: from-to-row-#{$fromRow}-#{$toRow};
+
+    @if $fromRow == $toRow {
+      .#{$name} {
+        grid-row: $toRow;
+      }
+    } @else {
+      .#{$name} {
+        animation: #{$name} 0.2s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes #{$name} {
+        from {
+          @if $fromRow > $toRow {
+            top: calc((#{$tile-size} + 1rem) * #{$fromRow} - #{$toRow} * #{$tile-size});
+          } @else {
+            top: calc(-1 * #{$tile-size} * (#{$board-dim} - #{$fromRow}) + (#{$board-dim} - #{$toRow}) * #{$tile-size}); 
+          }
+        }
+        to {
+          top: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@for $fromColumn from 0 through $board-dim {
+  @for $toColumn from 0 through $board-dim {
+    $name: from-to-column-#{$fromColumn}-#{$toColumn};
+
+    @if $fromColumn == $toColumn {
+      .#{$name} {
+        grid-column: $toColumn;
+      }
+    } @else {
+      .#{$name} {
+        animation: #{$name} 0.2s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes #{$name} {
+        from {
+          @if $fromColumn > $toColumn {
+            left: calc((#{$tile-size}) * #{$fromColumn} - #{$toColumn} * #{$tile-size});
+          } @else {
+            left: calc(-1 * #{$tile-size} * (#{$board-dim} - #{$fromColumn}) + (#{$board-dim} - #{$toColumn}) * #{$tile-size}); 
+          }
+        }
+        to {
+          left: 0;
+        }
+      }
+    }
+  }
+}
