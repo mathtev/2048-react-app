@@ -1,5 +1,5 @@
-$board-dim: 5;
-$board-size: calc(#{$board-dim} * 100px + 300px);
+$board-dim: 4;
+$board-size: calc(#{$board-dim} * 100px + 200px);
 $tile-size:  calc((#{$board-size} - (#{$board-dim} - 1) * 1rem) / #{$board-dim});
 $font-factor: calc(#{$board-size} / #{$board-dim} / 2);
 $small-font-factor: calc(#{$board-size} / #{$board-dim} / 3);
