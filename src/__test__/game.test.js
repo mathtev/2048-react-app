@@ -4,9 +4,8 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import { shallow } from 'enzyme';
-import { render, cleanup } from '@testing-library/react'
+import { cleanup, fireEvent, getByTestId, render } from '@testing-library/react'
 
-import Board from '../board';
 import Game from '../game';
 
 
@@ -30,7 +29,6 @@ describe("tast Game component", () => {
     testBoard.insertTile(1, 1, 2);
   });
 
-
   it('initially bestscore equals 0', () => {
     expect(testGame.state('bestscore')).toEqual(0);
   });
@@ -50,8 +48,7 @@ describe("tast Game component", () => {
         return tile.value;
       })
     })
-
-    expected[index[0]][index[1]] = index[2];
+    expected[index[0]][index[1]] = index[2] === 2 || index[2] === 4 ? index[2] : 0;
 
     expect(testCells).toEqual(expected);
   });
@@ -120,9 +117,31 @@ describe("tast Game component", () => {
     testBoard.insertRow(1, [4, 2, 4, 2]);
     testBoard.insertRow(2, [2, 8, 32, 16]);
     testBoard.insertRow(3, [16, 2, 4, 8]);
-
     testBoard.move(0);
     expect(testBoard.hasLost).toEqual(true);
+  });
+
+  it('click restart, game restarts', () => {  
+    testBoard.insertRow(0, [0, 2, 2, 4]);
+    testBoard.insertRow(1, [2, 2, 2, 2]);
+    testBoard.insertRow(2, [2, 8, 4, 16]);
+    testBoard.insertRow(3, [0, 0, 0, 2]);
+    testGame.find('.restartBtn').last().simulate('click');
+    testBoard = testGame.state('board');
+    //now check if board has only one tile: 2 or 4
+    let expected = [...Array(4)].map(x => Array(4).fill(0));
+    let index;
+    let testCells = testBoard.cells.map(function (subarray, row) {
+      return subarray.map(function (tile, col) {
+        if (tile.value !== 0) {
+          index = [row, col, tile.value];
+        }
+        return tile.value;
+      })
+    })
+    expected[index[0]][index[1]] = index[2] === 2 || index[2] === 4 ? index[2] : 0;
+
+    expect(testCells).toEqual(expected);
   });
 })
  
